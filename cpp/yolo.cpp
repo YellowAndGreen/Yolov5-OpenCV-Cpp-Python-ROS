@@ -127,7 +127,7 @@ int main(int argc, char **argv)
     std::vector<std::string> class_list = load_class_list();
 
     cv::Mat frame;
-    cv::VideoCapture capture("../sample.mp4");
+    cv::VideoCapture capture("../../sample.mp4");
     if (!capture.isOpened())
     {
         std::cerr << "Error opening video file\n";

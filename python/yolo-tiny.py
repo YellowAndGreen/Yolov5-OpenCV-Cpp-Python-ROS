@@ -3,7 +3,7 @@ import cv2
 
 # step 1 - load the model
 
-net = cv2.dnn.readNet('config_files/best.onnx')
+net = cv2.dnn.readNet('../config_files/best.onnx')
 
 # step 2 - feed a 640x640 image to get predictions
 
@@ -15,7 +15,7 @@ def format_yolov5(frame):
     result[0:row, 0:col] = frame
     return result
 
-image = cv2.imread('misc/test/000005.png')
+image = cv2.imread('../misc/test/000005.png')
 input_image = format_yolov5(image) # making the image square
 blob = cv2.dnn.blobFromImage(input_image , 1/255.0, (640, 640), swapRB=True)
 net.setInput(blob)
@@ -56,7 +56,7 @@ for r in range(25200):
             boxes.append(box)
 
 class_list = []
-with open("config_files/classes.txt", "r") as f:
+with open("../config_files/classes.txt", "r") as f:
     class_list = [cname.strip() for cname in f.readlines()]
 
 indexes = cv2.dnn.NMSBoxes(boxes, confidences, 0.25, 0.45) 

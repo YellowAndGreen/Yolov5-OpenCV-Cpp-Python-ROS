@@ -1,35 +1,30 @@
 # Yolov5-OpenCV-Cpp-Python-ROS
-[中文README](./README_ZH.md) 
 
-**This code is adapted from [yolov5-opencv-cpp-python](https://github.com/doleron/yolov5-opencv-cpp-python).**
-
-Example of performing inference with ultralytics YOLO V5, OpenCV 4.5.4 DNN, C++ and Python.
+使用OpenCV 4.5.4推理YOLOv5模型，分别使用C++，Python和ROS实现。
 
 
-In this adapted version, the C++ is compiled using CMake to easier define the environmental variables. Futhermore, this code is adapted to receive ROS image messages and display the detections.
+**基于[yolov5-opencv-cpp-python](https://github.com/doleron/yolov5-opencv-cpp-python)修改。**
+在原代码的基础上使用CMake编译（能够更方便的定义程序路径），并且加入了对ROS传入图片的支持。
 
-## Code explanation
-
-+ Variable **net_path** defines the onnx network path. 
-+ Variable **class_path** defines the class-file path.
-+ The ros node listens on **/image** to get input images.
+## 代码解释
++ 变量**net_path**定义了onnx网络模型路径.
++ 变量 **class_path**定义了分类文件的路径.
++ ROS节点订阅**/image**话题来获取输入图像.
 > NOTE: The code depends on the output dimension of your network model, which means the variables **dimensions and rows** in ros.cpp should be the exact same size of output dimensions.
+> 注意: 网络推理的计算取决于网络模型的输出维度, 也就是说ros.cpp中的变量**dimensions and rows**应该与其一致.
 
-## Prerequisites
-
-Make sure you have already on your system:
-
-- Any modern Linux OS (tested on Ubuntu 18.04)
+## 环境配置
+- 任何Linux OS (在Ubuntu 18.04上测试)
 - OpenCV 4.5.4+
-- Python 3.7+ (only if you are intended to run the python program)
-- GCC 9.0+ (only if you are intended to run the C++ program)
-- ROS melodic
+- Python 3.7+(可选)
+- GCC 9.0+(可选)
+- ROS melodic(可选)
 
-**IMPORTANT**!!! Note that OpenCV versions prior to 4.5.4 will not work at all.
+**注意**!!! 先于4.5.4的OpenCV版本不会正常运行。
 
-## Running the ROS/C++ program
+## 使用ROS/C++推理
 
-The C++/ROS code is [here](Yolo_ROS/ros.cpp).
+C++/ROS代码在[Yolo_ROS/ros.cpp](Yolo_ROS/ros.cpp)。
 
 ```bash
 git clone https://github.com/YellowAndGreen/Yolov5-OpenCV-Cpp-Python-ROS.git
@@ -41,9 +36,9 @@ make
 ```
 
 
-## Running the python script
+## 使用python推理
 
-The python code is [here](python/yolo.py).
+Python代码在[python/yolo.py](python/yolo.py).
 
 ```bash
 git clone https://github.com/YellowAndGreen/Yolov5-OpenCV-Cpp-Python-ROS.git
@@ -51,7 +46,7 @@ cd Yolov5-OpenCV-Cpp-Python-ROS
 python python/yolo.py 
 ```
 
-If your machine/OpenCV install are CUDA capable you can try out running using the GPU:
+使用GPU运行：
 
 ```bash
 git clone https://github.com/YellowAndGreen/Yolov5-OpenCV-Cpp-Python-ROS.git
@@ -60,9 +55,9 @@ python python/yolo.py cuda
 python python/yolo-tiny.py cuda
 ```
 
-## Running the C++ program
+## 使用C++推理
 
-The C++ code is [here](cpp/yolo.cpp).
+C++代码在[cpp/yolo.cpp](cpp/yolo.cpp).
 
 ```bash
 git clone https://github.com/YellowAndGreen/Yolov5-OpenCV-Cpp-Python-ROS.git
@@ -73,22 +68,18 @@ make
 ./yolo_example
 ```
 
-## Which YOLO version should I use?
+## 导出Yolov5 模型到onnx格式
 
-This repository uses YOLO V5 but it is not the only YOLO version out there. You can read [this article](https://towardsdatascience.com/yolo-v4-or-yolo-v5-or-pp-yolo-dad8e40f7109) to learn more about YOLO versions and choose the more suitable one for you.
+https://github.com/ultralytics/yolov5/issues/251
 
-## Exporting yolo v5 models to .onnx format
-
-Check here: https://github.com/ultralytics/yolov5/issues/251
-
-My commands were:
+我的指令是:
 
 ```bash
 git clone https://github.com/ultralytics/yolov5
 cd yolov5
 pip install -r requirements.txt
 ```
-And then to convert the model:
+然后转换模型:
 
 ```bash
 $ python3 export.py --weights yolov5n.pt --img 640 --include onnx
