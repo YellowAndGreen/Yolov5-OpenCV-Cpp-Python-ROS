@@ -48,7 +48,7 @@ const float SCORE_THRESHOLD = 0.2;
 const float NMS_THRESHOLD = 0.4;
 const float CONFIDENCE_THRESHOLD = 0.4;
 
-std::vector<std::string> class_list = load_class_list();
+std::vector<std::string> class_list;
 cv::dnn::Net net;
 
 struct Detection
